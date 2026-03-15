@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlyHigh — Elevate Your Business</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:       #c9a84c;
+  --gold2:      #ddbf6e;
+  --gold3:      #e8d08e;
+  --gold-pale:  #fdf6e3;
+  --gold-dark:  #a07828;
+  --white:      #ffffff;
+  --off:        #fafaf7;
+  --off2:       #f4f2ec;
+  --ink:        #111111;
+  --ink2:       #222222;
+  --ink3:       #444444;
+  --gray:       #888888;
+  --gray2:      #bbbbbb;
+  --border:     rgba(201,168,76,0.22);
+  --border2:    rgba(201,168,76,0.12);
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden;}
+
+/* ════════════════ NAV ════════════════ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  height:70px;padding:0 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,0.96);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow .3s;
+}
+#nav.scrolled{box-shadow:0 2px 24px rgba(201,168,76,0.1);}
+
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.75rem;font-weight:700;
+  color:var(--ink);text-decoration:none;letter-spacing:-.015em;
+}
+.nav-logo span{color:var(--gold);}
+
+.nav-center{display:flex;gap:36px;}
+.nav-center a{
+  text-decoration:none;color:var(--ink3);
+  font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;font-weight:400;
+  transition:color .2s;position:relative;padding-bottom:3px;
+}
+.nav-center a::after{
+  content:'';position:absolute;bottom:0;left:0;
+  width:0;height:1px;background:var(--gold);transition:width .25s;
+}
+.nav-center a:hover{color:var(--ink);}
+.nav-center a:hover::after{width:100%;}
+
+.nav-right{display:flex;align-items:center;gap:18px;}
+
+.lang-switch{
+  display:flex;align-items:center;
+  border:1px solid var(--border);border-radius:3px;overflow:hidden;
+}
+.lang-btn{
+  padding:6px 13px;font-size:.72rem;font-weight:500;
+  letter-spacing:.07em;text-transform:uppercase;
+  background:transparent;border:none;cursor:pointer;
+  color:var(--gray);font-family:'DM Sans',sans-serif;transition:all .2s;
+}
+.lang-btn.active{background:var(--gold);color:var(--white);}
+.lang-btn:hover:not(.active){color:var(--ink);}
+
+.nav-cta{
+  background:var(--gold);color:var(--white);
+  padding:10px 24px;border-radius:3px;text-decoration:none;
+  font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  transition:background .2s,transform .15s;
+}
+.nav-cta:hover{background:var(--gold-dark);transform:translateY(-1px);}
+
+/* ════════════════ HERO ════════════════ */
+#hero{
+  min-height:100vh;
+  background:var(--white);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:100px 5% 80px;
+  position:relative;overflow:hidden;text-align:center;
+}
+
+/* subtle dot grid */
+#hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(201,168,76,.18) 1px,transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;
+}
+/* gold gradient glow bottom */
+#hero::after{
+  content:'';position:absolute;bottom:-120px;left:50%;transform:translateX(-50%);
+  width:900px;height:400px;border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(201,168,76,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  border:1px solid var(--border);background:var(--gold-pale);
+  color:var(--gold-dark);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:6px 18px;border-radius:3px;margin-bottom:36px;
+  position:relative;z-index:1;
+}
+.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);}
+
+.hero-logo-wrap{
+  position:relative;display:inline-flex;
+  align-items:center;justify-content:center;
+  margin-bottom:44px;z-index:1;
+}
+.hero-ring{
+  position:absolute;border-radius:50%;
+  border:1px solid rgba(201,168,76,.22);
+  animation:hring 4.5s ease-in-out infinite;
+}
+.hr1{width:320px;height:320px;}
+.hr2{width:250px;height:250px;animation-delay:1s;border-color:rgba(201,168,76,.1);}
+@keyframes hring{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:.35}}
+
+.hero-logo{
+  width:210px;height:210px;object-fit:contain;
+  position:relative;z-index:2;
+  filter:drop-shadow(0 8px 32px rgba(201,168,76,.22));
+  animation:float 5.5s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+h1.htitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,5.5vw,5.8rem);font-weight:700;
+  color:var(--ink);line-height:1.05;letter-spacing:-.025em;
+  margin-bottom:24px;max-width:850px;
+  position:relative;z-index:1;
+}
+h1.htitle em{color:var(--gold);font-style:normal;}
+
+.hero-sub{
+  font-size:1.05rem;color:var(--gray);line-height:1.85;font-weight:300;
+  max-width:560px;margin:0 auto 48px;position:relative;z-index:1;
+}
+
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+
+.btn-gold{
+  display:inline-block;text-decoration:none;
+  background:var(--gold);color:var(--white);
+  padding:14px 34px;border-radius:3px;
+  font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  border:none;cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:background .2s,transform .15s;
+}
+.btn-gold:hover{background:var(--gold-dark);transform:translateY(-2px);}
+
+.btn-outline{
+  display:inline-block;text-decoration:none;
+  background:transparent;color:var(--ink3);
+  padding:14px 34px;border-radius:3px;
+  font-size:.82rem;font-weight:400;letter-spacing:.07em;text-transform:uppercase;
+  border:1px solid rgba(0,0,0,.15);cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:border-color .2s,color .2s;
+}
+.btn-outline:hover{border-color:var(--gold);color:var(--ink);}
+
+.hero-scroll{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--gray2);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;
+  z-index:1;
+}
+.scroll-line{
+  width:1px;height:44px;
+  background:linear-gradient(to bottom,rgba(201,168,76,.7),transparent);
+  animation:sline 2s ease-in-out infinite;
+}
+@keyframes sline{0%{opacity:0;transform:scaleY(0);transform-origin:top}50%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1);transform-origin:bottom}}
+
+/* ════════════════ SHARED ════════════════ */
+.wrap{max-width:1180px;margin:0 auto;}
+.sec-eyebrow{
+  display:block;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-dark);font-weight:500;margin-bottom:14px;
+}
+.sec-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,3.2vw,3rem);font-weight:700;line-height:1.1;margin-bottom:16px;
+}
+.sec-body{font-size:.95rem;color:var(--gray);line-height:1.82;font-weight:300;}
+
+/* ════════════════ CLIENTES CARRUSEL ════════════════ */
+#clientes{
+  padding:64px 0;
+  background:var(--gold-pale);
+  border-top:1px solid var(--border2);
+  border-bottom:1px solid var(--border2);
+  overflow:hidden;
+}
+.clientes-label{
+  text-align:center;margin-bottom:36px;
+  font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold-dark);font-weight:500;
+}
+
+.carousel-track-wrap{
+  overflow:hidden;
+  -webkit-mask:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
+  mask:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
+}
+.carousel-track{
+  display:flex;align-items:center;gap:0;
+  width:max-content;
+  animation:marquee 28s linear infinite;
+}
+.carousel-track:hover{animation-play-state:paused;}
+
+@keyframes marquee{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
+.logo-item{
+  display:flex;align-items:center;justify-content:center;
+  padding:0 48px;
+  flex-shrink:0;
+  height:60px;
+}
+
+/* SVG placeholder logos — each gets a unique text/shape */
+.logo-item svg{
+  height:36px;width:auto;
+  opacity:.5;
+  transition:opacity .25s;
+  filter:grayscale(1) sepia(.4);
+}
+.carousel-track:hover .logo-item:hover svg{
+  opacity:1;filter:none;
+}
+
+/* divider between logos */
+.logo-item + .logo-item{
+  border-left:1px solid var(--border);
+}
+
+/* ════════════════ NOSOTROS ════════════════ */
+#nosotros{padding:110px 5%;background:var(--white);}
+
+.nos-top{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+  margin-bottom:80px;
+}
+.nos-top-text .sec-body{max-width:100%;margin-top:10px;}
+
+.nos-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:60px;}
+.pillar{
+  background:var(--off);border:1px solid var(--border2);
+  padding:36px 28px;border-radius:4px;
+  border-top:3px solid transparent;
+  transition:border-top-color .3s,box-shadow .3s;
+}
+.pillar:hover{border-top-color:var(--gold);box-shadow:0 8px 32px rgba(201,168,76,.1);}
+.pillar-icon{font-size:1.6rem;margin-bottom:16px;}
+.pillar h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--ink);margin-bottom:10px;}
+.pillar p{font-size:.84rem;color:var(--gray);line-height:1.75;font-weight:300;}
+
+/* mission / vision */
+.mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;}
+
+.mv-card{
+  padding:52px 48px;border-radius:4px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;
+}
+.mv-card.light{
+  background:var(--off2);border:1px solid var(--border2);
+}
+.mv-card.dark{
+  background:var(--ink);
+}
+.mv-card.dark .sec-eyebrow{color:var(--gold2);}
+.mv-card.dark .sec-title{color:var(--white);}
+.mv-card.dark .sec-body{color:rgba(255,255,255,.48);}
+
+.mv-card.gold-accent{
+  background:var(--gold);
+}
+.mv-card.gold-accent .sec-eyebrow{color:rgba(0,0,0,.55);}
+.mv-card.gold-accent .sec-title{color:var(--ink);}
+.mv-card.gold-accent .sec-body{color:rgba(0,0,0,.62);}
+
+.mv-btn-dark{
+  margin-top:28px;align-self:flex-start;display:inline-block;text-decoration:none;
+  background:var(--white);color:var(--ink);
+  padding:11px 24px;border-radius:3px;
+  font-size:.76rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;
+  font-family:'DM Sans',sans-serif;transition:background .2s;
+}
+.mv-btn-dark:hover{background:var(--off2);}
+
+.mv-btn-light{
+  margin-top:28px;align-self:flex-start;display:inline-block;text-decoration:none;
+  background:var(--ink);color:var(--white);
+  padding:11px 24px;border-radius:3px;
+  font-size:.76rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;
+  font-family:'DM Sans',sans-serif;transition:background .2s;
+}
+.mv-btn-light:hover{background:var(--ink2);}
+
+/* ════════════════ SERVICIOS ════════════════ */
+#servicios{padding:110px 5%;background:var(--off);}
+
+.svc-header{
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:64px;
+}
+
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+
+.svc-card{
+  background:var(--white);border:1px solid var(--border2);
+  padding:52px 44px;border-radius:4px;
+  position:relative;overflow:hidden;
+  transition:transform .25s,box-shadow .25s;
+}
+.svc-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(201,168,76,.12);}
+.svc-card::before{
+  content:'';position:absolute;top:0;left:0;
+  width:100%;height:3px;background:transparent;
+  transition:background .35s;
+}
+.svc-card:hover::before{background:var(--gold);}
+.svc-card.dark-card{background:var(--ink);}
+
+.svc-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:4.5rem;font-weight:700;line-height:1;
+  color:rgba(0,0,0,.04);position:absolute;top:16px;right:24px;user-select:none;
+}
+.dark-card .svc-num{color:rgba(255,255,255,.04);}
+
+.svc-icon{
+  width:52px;height:52px;border-radius:3px;
+  background:var(--gold-pale);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin-bottom:26px;
+}
+.dark-card .svc-icon{background:rgba(201,168,76,.12);}
+
+.svc-card h3{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:700;color:var(--ink);margin-bottom:14px;}
+.dark-card h3{color:var(--white);}
+.svc-card>p{font-size:.88rem;color:var(--gray);line-height:1.78;font-weight:300;}
+.dark-card>p{color:rgba(255,255,255,.48);}
+
+.svc-list{list-style:none;margin-top:22px;display:flex;flex-direction:column;gap:10px;}
+.svc-list li{font-size:.84rem;font-weight:300;color:var(--gray);display:flex;align-items:center;gap:10px;}
+.dark-card .svc-list li{color:rgba(255,255,255,.45);}
+.svc-list li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+
+.svc-footer{
+  background:var(--gold);padding:36px 44px;border-radius:4px;margin-top:20px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+}
+.svc-footer-label{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:6px;}
+.svc-footer strong{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--ink);}
+.svc-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.svc-tag{
+  background:rgba(0,0,0,.1);border:1px solid rgba(0,0,0,.15);
+  color:var(--ink);font-size:.72rem;padding:5px 14px;border-radius:3px;
+  letter-spacing:.05em;font-weight:400;
+}
+
+/* ════════════════ METODOLOGIA ════════════════ */
+#metodologia{padding:110px 5%;background:var(--white);}
+.met-header{text-align:center;max-width:640px;margin:0 auto 72px;}
+.met-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.met-card{
+  background:var(--off);border:1px solid var(--border2);
+  padding:40px 32px;border-radius:4px;
+  border-bottom:3px solid transparent;
+  transition:border-bottom-color .3s,box-shadow .3s;
+}
+.met-card:hover{border-bottom-color:var(--gold);box-shadow:0 8px 32px rgba(201,168,76,.1);}
+.met-step{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3rem;font-weight:700;color:rgba(201,168,76,.25);
+  line-height:1;margin-bottom:18px;
+}
+.met-card h4{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:var(--ink);margin-bottom:10px;}
+.met-card p{font-size:.84rem;color:var(--gray);line-height:1.72;font-weight:300;}
+
+/* ════════════════ CONTACTO ════════════════ */
+#contacto{padding:110px 5%;background:var(--off);}
+
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+
+.contact-info{
+  background:var(--ink);border-radius:4px;
+  padding:56px 48px;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.contact-info .sec-eyebrow{color:var(--gold2);}
+.contact-info .sec-title{color:var(--white);}
+.contact-info .sec-body{color:rgba(255,255,255,.45);margin-top:10px;}
+
+.clist{margin-top:40px;display:flex;flex-direction:column;}
+.citem{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:18px 0;border-bottom:1px solid rgba(255,255,255,.07);
+}
+.citem:last-child{border-bottom:none;}
+.citem-icon{
+  width:40px;height:40px;border-radius:3px;
+  background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);
+  display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;
+}
+.citem-label{font-size:.67rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2);margin-bottom:3px;}
+.citem-val{font-size:.88rem;color:rgba(255,255,255,.6);font-weight:300;text-decoration:none;transition:color .2s;}
+.citem-val:hover{color:var(--gold);}
+
+.csocial{display:flex;gap:10px;margin-top:32px;}
+.csoc{
+  width:36px;height:36px;border-radius:3px;
+  border:1px solid rgba(255,255,255,.14);
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;font-size:.7rem;font-weight:600;color:rgba(255,255,255,.4);
+  transition:border-color .2s,color .2s;
+}
+.csoc:hover{border-color:var(--gold);color:var(--gold);}
+
+.contact-form-wrap{background:var(--white);border-radius:4px;padding:56px 48px;}
+.cform{display:flex;flex-direction:column;gap:14px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.field{display:flex;flex-direction:column;gap:6px;}
+.field label{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);font-weight:500;}
+.field input,.field textarea,.field select{
+  padding:13px 16px;background:var(--off);border:1px solid #e0ddd6;border-radius:3px;
+  color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:300;
+  outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none;
+}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold);background:var(--white);}
+.field input::placeholder,.field textarea::placeholder{color:var(--gray2);}
+.field textarea{resize:vertical;min-height:120px;}
+.field select option{color:var(--ink);}
+.form-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:4px;}
+.form-note{font-size:.73rem;color:var(--gray2);font-weight:300;}
+
+/* ════════════════ FOOTER ════════════════ */
+footer{
+  background:var(--ink);padding:64px 5% 0;
+  border-top:1px solid rgba(201,168,76,.15);
+}
+.footer-grid{
+  display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:48px;
+  padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.07);
+}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:var(--white);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.footer-logo span{color:var(--gold);}
+.footer-desc{font-size:.84rem;color:rgba(255,255,255,.35);line-height:1.75;font-weight:300;max-width:240px;}
+.fcol h5{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:18px;}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.fcol ul li a{text-decoration:none;font-size:.84rem;color:rgba(255,255,255,.38);font-weight:300;transition:color .2s;}
+.fcol ul li a:hover{color:var(--white);}
+.footer-bottom{padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.footer-bottom small{font-size:.74rem;color:rgba(255,255,255,.2);font-weight:300;}
+.footer-tagline{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,168,76,.35);}
+
+/* ════════════════ RESPONSIVE ════════════════ */
+@media(max-width:1024px){
+  .nos-top,.mv-grid,.svc-grid,.contact-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:768px){
+  .nav-center{display:none;}
+  .met-grid,.nos-pillars{grid-template-columns:1fr 1fr;}
+  .svc-header{grid-template-columns:1fr;gap:20px;}
+  h1.htitle{font-size:2.5rem;}
+  .mv-card,.svc-card,.contact-info,.contact-form-wrap{padding:36px 28px;}
+  .footer-grid{grid-template-columns:1fr;}
+}
+@media(max-width:540px){
+  .met-grid,.nos-pillars{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav id="nav">
+  <a class="nav-logo" href="#"><span>Fly</span>High</a>
+  <div class="nav-center">
+    <a href="#nosotros"    data-es="Nosotros"    data-en="About">Nosotros</a>
+    <a href="#servicios"   data-es="Servicios"   data-en="Services">Servicios</a>
+    <a href="#metodologia" data-es="Metodología" data-en="Methodology">Metodología</a>
+    <a href="#contacto"    data-es="Contacto"    data-en="Contact">Contacto</a>
+  </div>
+  <div class="nav-right">
+    <div class="lang-switch">
+      <button class="lang-btn active" id="btn-es" onclick="setLang('es')">ES</button>
+      <button class="lang-btn"        id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="#contacto" class="nav-cta" data-es="Hablemos" data-en="Let's talk">Hablemos</a>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section id="hero">
+  <div class="hero-eyebrow">
+    <span class="hero-tagline-dot" style="width:6px;height:6px;border-radius:50%;background:var(--gold);display:inline-block;"></span>
+    <span data-es="Software para pequeñas empresas" data-en="Software for small businesses">Software para pequeñas empresas</span>
+  </div>
+
+  <div class="hero-logo-wrap">
+    <div class="hero-ring hr1"></div>
+    <div class="hero-ring hr2"></div>
+    <img src="WhatsApp_Image_2026-03-13_at_14_01_23.jpeg" alt="FlyHigh" class="hero-logo">
+  </div>
+
+  <h1 class="htitle">
+    <span data-es="Tu negocio merece tecnología" data-en="Your business deserves technology">Tu negocio merece tecnología</span><br>
+    <em data-es="a su medida" data-en="built for it">a su medida</em>
+  </h1>
+
+  <p class="hero-sub"
+     data-es="Construimos software personalizado y plataformas web que te ayudan a organizarte mejor, automatizar lo manual y crecer con estructura real."
+     data-en="We build custom software and web platforms that help you get organized, automate manual work and grow with real structure.">
+    Construimos software personalizado y plataformas web que te ayudan a organizarte mejor, automatizar lo manual y crecer con estructura real.
+  </p>
+
+  <div class="hero-btns">
+    <a href="#contacto" class="btn-gold"    data-es="Empezar ahora"  data-en="Get started">Empezar ahora</a>
+    <a href="#servicios" class="btn-outline" data-es="Ver servicios"  data-en="View services">Ver servicios</a>
+  </div>
+
+  <div class="hero-scroll">
+    <span class="scroll-line"></span>
+    <span data-es="scroll" data-en="scroll">scroll</span>
+  </div>
+</section>
+
+<!-- ══════ CLIENTES CARRUSEL ══════ -->
+<section id="clientes">
+  <p class="clientes-label" data-es="Empresas que confiaron en nosotros" data-en="Companies that trusted us">Empresas que confiaron en nosotros</p>
+  <div class="carousel-track-wrap">
+    <div class="carousel-track" id="carousel">
+      <!-- Los logos se insertan vía JS para duplicar automáticamente -->
+    </div>
+  </div>
+</section>
+
+<!-- ══════ NOSOTROS ══════ -->
+<section id="nosotros">
+  <div class="wrap">
+    <div class="nos-top">
+      <div>
+        <span class="sec-eyebrow" data-es="Sobre nosotros" data-en="About us">Sobre nosotros</span>
+        <h2 class="sec-title"
+            data-es="Dos desarrolladores, un solo enfoque: que tu negocio crezca"
+            data-en="Two developers, one focus: growing your business">
+          Dos desarrolladores, un solo enfoque: que tu negocio crezca
+        </h2>
+      </div>
+      <p class="sec-body"
+         data-es="FlyHigh somos dos developers apasionados por construir software que funcione de verdad. Sin capas de intermediarios — hablás directamente con quien escribe tu código. Colaboramos de cerca con cada cliente para entender su operación, sus puntos de dolor y las oportunidades que la tecnología puede resolver."
+         data-en="FlyHigh is two developers passionate about building software that actually works. No layers of intermediaries — you talk directly with the people writing your code. We work closely with every client to understand their operations, pain points and the opportunities technology can solve.">
+        FlyHigh somos dos developers apasionados por construir software que funcione de verdad. Sin capas de intermediarios — hablás directamente con quien escribe tu código. Colaboramos de cerca con cada cliente para entender su operación, sus puntos de dolor y las oportunidades que la tecnología puede resolver.
+      </p>
+    </div>
+
+    <div class="nos-pillars">
+      <div class="pillar">
+        <div class="pillar-icon">🤝</div>
+        <h3 data-es="Comunicación directa" data-en="Direct communication">Comunicación directa</h3>
+        <p data-es="Cada decisión y cambio pasa por las mismas personas que desarrollan tu proyecto. Sin teléfono roto, sin sorpresas." data-en="Every decision and change goes through the same people building your project. No broken telephone, no surprises.">Cada decisión y cambio pasa por las mismas personas que desarrollan tu proyecto. Sin teléfono roto, sin sorpresas.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">⚡</div>
+        <h3 data-es="Eficiencia real" data-en="Real efficiency">Eficiencia real</h3>
+        <p data-es="Nos comprometemos con resultados concretos. Entregas puntuales, código limpio y soluciones que se sostienen en el tiempo." data-en="We commit to concrete results. On-time deliveries, clean code and solutions that hold up over time.">Nos comprometemos con resultados concretos. Entregas puntuales, código limpio y soluciones que se sostienen en el tiempo.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🚀</div>
+        <h3 data-es="Innovación aplicada" data-en="Applied innovation">Innovación aplicada</h3>
+        <p data-es="Usamos la tecnología correcta para el problema correcto y construimos sobre bases que escalan con tu crecimiento." data-en="We use the right technology for the right problem, building on foundations that scale with your growth.">Usamos la tecnología correcta para el problema correcto y construimos sobre bases que escalan con tu crecimiento.</p>
+      </div>
+    </div>
+
+    <div class="mv-grid">
+      <div class="mv-card dark">
+        <div>
+          <span class="sec-eyebrow" data-es="Nuestra misión" data-en="Our mission">Nuestra misión</span>
+          <h2 class="sec-title" data-es="Innovación a medida para el éxito" data-en="Custom innovation for success">Innovación a medida para el éxito</h2>
+          <p class="sec-body" data-es="Diseñamos y entregamos soluciones de software que potencian a las pequeñas empresas para alcanzar sus metas. Comprendemos sus necesidades únicas y construimos tecnología que transforma su operación día a día." data-en="We design and deliver software solutions that empower small businesses to reach their goals. We understand their unique needs and build technology that transforms their day-to-day operations.">Diseñamos y entregamos soluciones de software que potencian a las pequeñas empresas para alcanzar sus metas. Comprendemos sus necesidades únicas y construimos tecnología que transforma su operación día a día.</p>
+        </div>
+        <a href="#servicios" class="mv-btn-dark" data-es="Ver nuestros servicios" data-en="View our services">Ver nuestros servicios</a>
+      </div>
+      <div class="mv-card gold-accent">
+        <div>
+          <span class="sec-eyebrow" data-es="Nuestra visión" data-en="Our vision">Nuestra visión</span>
+          <h2 class="sec-title" data-es="Que cada empresa tenga el software que merece" data-en="Every business deserves the software it needs">Que cada empresa tenga el software que merece</h2>
+          <p class="sec-body" data-es="Aspiramos a ser el partner tecnológico de referencia para pequeñas empresas en crecimiento — reconocidos por nuestra cercanía, competencia técnica y capacidad de transformar ideas en productos que funcionan." data-en="We aspire to be the go-to technology partner for growing small businesses — recognized for our closeness, technical expertise and ability to turn ideas into products that work.">Aspiramos a ser el partner tecnológico de referencia para pequeñas empresas en crecimiento — reconocidos por nuestra cercanía, competencia técnica y capacidad de transformar ideas en productos que funcionan.</p>
+        </div>
+        <a href="#contacto" class="mv-btn-light" data-es="Trabajemos juntos" data-en="Let's work together">Trabajemos juntos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SERVICIOS ══════ -->
+<section id="servicios">
+  <div class="wrap">
+    <div class="svc-header">
+      <div>
+        <span class="sec-eyebrow" data-es="Lo que hacemos" data-en="What we do">Lo que hacemos</span>
+        <h2 class="sec-title" data-es="Software diseñado para escalar con vos" data-en="Software designed to scale with you">Software diseñado para escalar con vos</h2>
+      </div>
+      <p class="sec-body" data-es="No vendemos soluciones genéricas. Cada proyecto arranca desde cero, entendiendo tu negocio y construyendo la herramienta exacta que necesitás." data-en="We don't sell generic solutions. Every project starts from scratch, understanding your business and building the exact tool you need.">No vendemos soluciones genéricas. Cada proyecto arranca desde cero, entendiendo tu negocio y construyendo la herramienta exacta que necesitás.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <span class="svc-num">01</span>
+        <div class="svc-icon">⚙️</div>
+        <h3 data-es="Software a Medida" data-en="Custom Software">Software a Medida</h3>
+        <p data-es="Si ninguna herramienta existente cubre bien tu operación, la solución es construir la tuya. Desarrollamos sistemas que encajan exactamente con cómo trabajás." data-en="If no existing tool covers your operations well, the solution is to build your own. We develop systems that fit exactly how you work.">Si ninguna herramienta existente cubre bien tu operación, la solución es construir la tuya. Desarrollamos sistemas que encajan exactamente con cómo trabajás.</p>
+        <ul class="svc-list">
+          <li data-es="Gestión interna, facturación, stock" data-en="Internal management, billing, inventory">Gestión interna, facturación, stock</li>
+          <li data-es="Paneles de control y reportes" data-en="Control panels and reports">Paneles de control y reportes</li>
+          <li data-es="Automatización de procesos manuales" data-en="Automation of manual processes">Automatización de procesos manuales</li>
+          <li data-es="Integración con herramientas existentes" data-en="Integration with existing tools">Integración con herramientas existentes</li>
+        </ul>
+      </div>
+      <div class="svc-card dark-card">
+        <span class="svc-num">02</span>
+        <div class="svc-icon">🌐</div>
+        <h3 data-es="Apps Web & SaaS" data-en="Web Apps & SaaS">Apps Web & SaaS</h3>
+        <p data-es="¿Tenés una idea de producto digital? La transformamos en una plataforma real, funcional y lista para escalar. Desde el MVP hasta miles de usuarios." data-en="Got an idea for a digital product? We turn it into a real, functional platform ready to scale. From MVP to thousands of users.">¿Tenés una idea de producto digital? La transformamos en una plataforma real, funcional y lista para escalar. Desde el MVP hasta miles de usuarios.</p>
+        <ul class="svc-list">
+          <li data-es="MVPs y primeras versiones de producto" data-en="MVPs and first product versions">MVPs y primeras versiones de producto</li>
+          <li data-es="Plataformas con usuarios, roles y pagos" data-en="Platforms with users, roles and payments">Plataformas con usuarios, roles y pagos</li>
+          <li data-es="Portales de cliente o proveedor" data-en="Client or supplier portals">Portales de cliente o proveedor</li>
+          <li data-es="Diseño y desarrollo full-stack" data-en="Full-stack design and development">Diseño y desarrollo full-stack</li>
+        </ul>
+      </div>
+    </div>
+    <div class="svc-footer">
+      <div>
+        <p class="svc-footer-label" data-es="¿Para quién?" data-en="Who is it for?">¿Para quién?</p>
+        <strong data-es="Pensado para pequeñas empresas que quieren dar el salto tecnológico" data-en="Built for small businesses ready to take the technology leap">Pensado para pequeñas empresas que quieren dar el salto tecnológico</strong>
+      </div>
+      <div class="svc-tags">
+        <span class="svc-tag" data-es="Comercios y locales" data-en="Retail & local businesses">Comercios y locales</span>
+        <span class="svc-tag" data-es="Servicios profesionales" data-en="Professional services">Servicios profesionales</span>
+        <span class="svc-tag" data-es="Startups en etapa temprana" data-en="Early-stage startups">Startups en etapa temprana</span>
+        <span class="svc-tag" data-es="Emprendimientos en crecimiento" data-en="Growing businesses">Emprendimientos en crecimiento</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ METODOLOGIA ══════ -->
+<section id="metodologia">
+  <div class="wrap">
+    <div class="met-header">
+      <span class="sec-eyebrow" data-es="Cómo trabajamos" data-en="How we work">Cómo trabajamos</span>
+      <h2 class="sec-title" data-es="Un proceso claro, sin sorpresas" data-en="A clear process, no surprises">Un proceso claro, sin sorpresas</h2>
+      <p class="sec-body" style="margin-top:10px;"
+         data-es="Aplicamos metodología ágil para adaptarnos rápido, entregar valor en cada etapa y mantener al cliente involucrado en todo momento."
+         data-en="We apply agile methodology to adapt quickly, deliver value at every stage and keep the client involved throughout.">
+        Aplicamos metodología ágil para adaptarnos rápido, entregar valor en cada etapa y mantener al cliente involucrado en todo momento.
+      </p>
+    </div>
+    <div class="met-grid">
+      <div class="met-card">
+        <div class="met-step">01</div>
+        <h4 data-es="Descubrimiento" data-en="Discovery">Descubrimiento</h4>
+        <p data-es="Entendemos tu negocio y el problema antes de escribir una sola línea de código." data-en="We understand your business and the problem before writing a single line of code.">Entendemos tu negocio y el problema antes de escribir una sola línea de código.</p>
+      </div>
+      <div class="met-card">
+        <div class="met-step">02</div>
+        <h4 data-es="Diseño & Arquitectura" data-en="Design & Architecture">Diseño & Arquitectura</h4>
+        <p data-es="Definimos flujos, pantallas y stack tecnológico. Todo documentado y validado con vos." data-en="We define flows, screens and tech stack. Everything documented and validated with you.">Definimos flujos, pantallas y stack tecnológico. Todo documentado y validado con vos.</p>
+      </div>
+      <div class="met-card">
+        <div class="met-step">03</div>
+        <h4 data-es="Desarrollo Ágil" data-en="Agile Development">Desarrollo Ágil</h4>
+        <p data-es="Sprints cortos con entregas reales. Feedback en cada etapa, sin esperar al final." data-en="Short sprints with real deliverables. Feedback at every stage, not just at the end.">Sprints cortos con entregas reales. Feedback en cada etapa, sin esperar al final.</p>
+      </div>
+      <div class="met-card">
+        <div class="met-step">04</div>
+        <h4 data-es="Iteración continua" data-en="Continuous iteration">Iteración continua</h4>
+        <p data-es="Mejoramos en base al feedback real. Las prioridades cambian — nuestro proceso se adapta." data-en="We improve based on real feedback. Priorities change — our process adapts.">Mejoramos en base al feedback real. Las prioridades cambian — nuestro proceso se adapta.</p>
+      </div>
+      <div class="met-card">
+        <div class="met-step">05</div>
+        <h4 data-es="Integración continua" data-en="Continuous integration">Integración continua</h4>
+        <p data-es="CI/CD para garantizar estabilidad y calidad del código en todas las fases del proyecto." data-en="CI/CD to ensure code stability and quality across all project phases.">CI/CD para garantizar estabilidad y calidad del código en todas las fases del proyecto.</p>
+      </div>
+      <div class="met-card">
+        <div class="met-step">06</div>
+        <h4 data-es="Lanzamiento & Soporte" data-en="Launch & Support">Lanzamiento & Soporte</h4>
+        <p data-es="Deploy, capacitación y soporte post-lanzamiento. No desaparecemos después de la entrega." data-en="Deploy, training and post-launch support. We don't disappear after delivery.">Deploy, capacitación y soporte post-lanzamiento. No desaparecemos después de la entrega.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CONTACTO ══════ -->
+<section id="contacto">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div>
+          <span class="sec-eyebrow" data-es="Hablemos" data-en="Let's talk">Hablemos</span>
+          <h2 class="sec-title" data-es="¿Tenés un proyecto en mente?" data-en="Got a project in mind?">¿Tenés un proyecto en mente?</h2>
+          <p class="sec-body" data-es="Contanos tu idea y te respondemos en menos de 24 horas con una propuesta inicial, sin costo y sin compromiso." data-en="Tell us your idea and we'll reply in under 24 hours with an initial proposal, at no cost and with no commitment.">Contanos tu idea y te respondemos en menos de 24 horas con una propuesta inicial, sin costo y sin compromiso.</p>
+          <div class="clist">
+            <div class="citem">
+              <div class="citem-icon">📍</div>
+              <div>
+                <p class="citem-label" data-es="Ubicación" data-en="Location">Ubicación</p>
+                <span class="citem-val">Villa Mercedes, San Luis</span>
+              </div>
+            </div>
+            <div class="citem">
+              <div class="citem-icon">📧</div>
+              <div>
+                <p class="citem-label">Email</p>
+                <a href="mailto:hola@flyhigh.dev" class="citem-val">hola@flyhigh.dev</a>
+              </div>
+            </div>
+            <div class="citem">
+              <div class="citem-icon">💬</div>
+              <div>
+                <p class="citem-label">WhatsApp</p>
+                <a href="https://wa.me/549XXXXXXXXX" class="citem-val">+54 9 · disponible</a>
+              </div>
+            </div>
+            <div class="citem">
+              <div class="citem-icon">⏱️</div>
+              <div>
+                <p class="citem-label" data-es="Respuesta" data-en="Response">Respuesta</p>
+                <span class="citem-val" data-es="Menos de 24 hs hábiles" data-en="Under 24 business hours">Menos de 24 hs hábiles</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="csocial">
+          <a href="#" class="csoc">in</a>
+          <a href="#" class="csoc">li</a>
+          <a href="#" class="csoc">gh</a>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap">
+        <span class="sec-eyebrow" data-es="Dejanos un mensaje" data-en="Send us a message">Dejanos un mensaje</span>
+        <form class="cform" onsubmit="handleSubmit(event)" style="margin-top:20px;">
+          <div class="form-row">
+            <div class="field">
+              <label data-es="Nombre" data-en="Name">Nombre</label>
+              <input type="text" required placeholder="Juan">
+            </div>
+            <div class="field">
+              <label data-es="Apellido" data-en="Last name">Apellido</label>
+              <input type="text" placeholder="García">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label>Email</label>
+              <input type="email" required placeholder="juan@empresa.com">
+            </div>
+            <div class="field">
+              <label data-es="Teléfono (opcional)" data-en="Phone (optional)">Teléfono (opcional)</label>
+              <input type="tel" placeholder="+54 9 ...">
+            </div>
+          </div>
+          <div class="field">
+            <label data-es="Empresa (opcional)" data-en="Company (optional)">Empresa (opcional)</label>
+            <input type="text" placeholder="Mi Empresa S.A.">
+          </div>
+          <div class="field">
+            <label data-es="¿Qué necesitás?" data-en="What do you need?">¿Qué necesitás?</label>
+            <select>
+              <option value="" disabled selected data-es="Seleccioná una opción" data-en="Select an option">Seleccioná una opción</option>
+              <option data-es="Software a medida" data-en="Custom software">Software a medida</option>
+              <option data-es="App web o plataforma SaaS" data-en="Web app or SaaS platform">App web o plataforma SaaS</option>
+              <option data-es="Las dos cosas" data-en="Both">Las dos cosas</option>
+              <option data-es="Quiero asesorarme" data-en="I want consulting">Quiero asesorarme</option>
+            </select>
+          </div>
+          <div class="field">
+            <label data-es="Tu mensaje" data-en="Your message">Tu mensaje</label>
+            <textarea id="msg-ph"></textarea>
+          </div>
+          <div class="form-foot">
+            <p class="form-note" data-es="Sin spam. Solo te contactamos para tu proyecto." data-en="No spam. We only contact you about your project.">Sin spam. Solo te contactamos para tu proyecto.</p>
+            <button type="submit" class="btn-gold" data-es="Enviar mensaje →" data-en="Send message →">Enviar mensaje →</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="footer-logo" href="#"><span>Fly</span>High</a>
+        <p class="footer-desc" data-es="Desarrollamos software a medida y plataformas web para pequeñas empresas que quieren crecer con tecnología real." data-en="We build custom software and web platforms for small businesses that want to grow with real technology.">Desarrollamos software a medida y plataformas web para pequeñas empresas que quieren crecer con tecnología real.</p>
+      </div>
+      <div class="fcol">
+        <h5 data-es="Navegación" data-en="Navigation">Navegación</h5>
+        <ul>
+          <li><a href="#nosotros"    data-es="Nosotros"    data-en="About">Nosotros</a></li>
+          <li><a href="#servicios"   data-es="Servicios"   data-en="Services">Servicios</a></li>
+          <li><a href="#metodologia" data-es="Metodología" data-en="Methodology">Metodología</a></li>
+          <li><a href="#contacto"    data-es="Contacto"    data-en="Contact">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h5 data-es="Servicios" data-en="Services">Servicios</h5>
+        <ul>
+          <li><a href="#servicios" data-es="Software a medida"  data-en="Custom software">Software a medida</a></li>
+          <li><a href="#servicios" data-es="Apps Web & SaaS"    data-en="Web Apps & SaaS">Apps Web & SaaS</a></li>
+          <li><a href="#servicios" data-es="Automatizaciones"   data-en="Automations">Automatizaciones</a></li>
+          <li><a href="#servicios" data-es="Consultoría tech"   data-en="Tech consulting">Consultoría tech</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h5 data-es="Contacto" data-en="Contact">Contacto</h5>
+        <ul>
+          <li><a href="mailto:hola@flyhigh.dev">hola@flyhigh.dev</a></li>
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <small>© 2026 FlyHigh. <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos reservados.</span></small>
+      <span class="footer-tagline">Elevate Your Business</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── Carousel logos ───
+const logos = [
+  { name:"Empresa A",  shape:"rect",   color:"#c9a84c" },
+  { name:"Empresa B",  shape:"circle", color:"#888"    },
+  { name:"Empresa C",  shape:"rect",   color:"#555"    },
+  { name:"Empresa D",  shape:"circle", color:"#c9a84c" },
+  { name:"Empresa E",  shape:"rect",   color:"#777"    },
+  { name:"Empresa F",  shape:"circle", color:"#999"    },
+  { name:"Empresa G",  shape:"rect",   color:"#c9a84c" },
+  { name:"Empresa H",  shape:"circle", color:"#666"    },
+  { name:"Empresa I",  shape:"rect",   color:"#888"    },
+  { name:"Empresa J",  shape:"circle", color:"#c9a84c" },
+];
+
+function makeSVGLogo(logo) {
+  // Build a minimal wordmark-style SVG per company
+  const w = 110, h = 38;
+  const shape = logo.shape === 'circle'
+    ? `<circle cx="19" cy="19" r="10" fill="${logo.color}" opacity="0.7"/>`
+    : `<rect x="9" y="11" width="20" height="16" rx="3" fill="${logo.color}" opacity="0.7"/>`;
+  return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+    ${shape}
+    <text x="36" y="24" font-family="DM Sans,sans-serif" font-size="13" font-weight="500" fill="#444">${logo.name}</text>
+  </svg>`;
+}
+
+function buildCarousel() {
+  const track = document.getElementById('carousel');
+  // double the logos for seamless loop
+  const all = [...logos, ...logos];
+  track.innerHTML = all.map(l =>
+    `<div class="logo-item">${makeSVGLogo(l)}</div>`
+  ).join('');
+}
+buildCarousel();
+
+// ─── Language switch ───
+const msgText = {
+  es: "Contanos tu idea o el problema que querés resolver. Mientras más detalle, mejor podemos ayudarte.",
+  en: "Tell us your idea or the problem you want to solve. The more detail, the better we can help you."
+};
+let lang = 'es';
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('btn-es').classList.toggle('active', l === 'es');
+  document.getElementById('btn-en').classList.toggle('active', l === 'en');
+  document.documentElement.lang = l;
+
+  document.querySelectorAll('[data-es][data-en]').forEach(el => {
+    const val = el.getAttribute('data-' + l);
+    if (val === null) return;
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+      el.placeholder = val;
+    } else {
+      el.textContent = val;
+    }
+  });
+  document.getElementById('msg-ph').placeholder = msgText[l];
+}
+document.getElementById('msg-ph').placeholder = msgText.es;
+
+// ─── Nav scroll ───
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ─── Form submit ───
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  const orig = btn.textContent;
+  btn.textContent = lang === 'es' ? '¡Enviado! Te contactamos pronto ✓' : "Sent! We'll be in touch ✓";
+  btn.style.background = '#2d7a56';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = orig;
+    btn.style.background = '';
+    btn.disabled = false;
+    e.target.reset();
+  }, 4000);
+}
+</script>
+</body>
+</html>
