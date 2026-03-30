@@ -238,7 +238,8 @@ h1.htitle em{color:var(--gold);font-style:normal;}
   display:flex;align-items:center;justify-content:center;
   padding:0 48px;
   flex-shrink:0;
-  height:60px;
+  height:auto;
+  min-height:60px;
 }
 
 /* SVG placeholder logos — each gets a unique text/shape */
@@ -985,28 +986,23 @@ emailjs.init({ publicKey: 'YJOA6pK_jVrOJC0HP' });
 
 // ─── Carousel logos ───
 const logos = [
-  { name:"Empresa A",  shape:"rect",   color:"#c9a84c" },
-  { name:"Empresa B",  shape:"circle", color:"#888"    },
-  { name:"Empresa C",  shape:"rect",   color:"#555"    },
-  { name:"Empresa D",  shape:"circle", color:"#c9a84c" },
-  { name:"Empresa E",  shape:"rect",   color:"#777"    },
-  { name:"Empresa F",  shape:"circle", color:"#999"    },
-  { name:"Empresa G",  shape:"rect",   color:"#c9a84c" },
-  { name:"Empresa H",  shape:"circle", color:"#666"    },
-  { name:"Empresa I",  shape:"rect",   color:"#888"    },
-  { name:"Empresa J",  shape:"circle", color:"#c9a84c" },
+  { name:"Asociación Mercedina de Voleibol", shape:"img", color:"#c9a84c", src:"./assets/logoAMV.png" },
+  { name:"Club Social y Deportivo Comercio",  shape:"circle", color:"#888", src:"./assets/LogoComercio.png" },
+  { name:"Colegio de Árbitros Villa Mercedes",  shape:"circle", color:"#888", src:"./assets/logoCAVM.jpg" },
+  { name:"Comisión Provincial de Arbitraje de Voley de Entre Ríos",  shape:"circle", color:"#888", src:"./assets/logoERios.jpg" },
 ];
 
 function makeSVGLogo(logo) {
   // Build a minimal wordmark-style SVG per company
   const w = 110, h = 38;
+  if (logo.shape === 'img') {
+  return `<img src="${logo.src}" alt="${logo.name}" style="height:66px;width:auto;object-fit:contain;">`;
+}
   const shape = logo.shape === 'circle'
-    ? `<circle cx="19" cy="19" r="10" fill="${logo.color}" opacity="0.7"/>`
-    : `<rect x="9" y="11" width="20" height="16" rx="3" fill="${logo.color}" opacity="0.7"/>`;
-  return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
-    ${shape}
-    <text x="36" y="24" font-family="DM Sans,sans-serif" font-size="13" font-weight="500" fill="#444">${logo.name}</text>
-  </svg>`;
+  return `<div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+    <img src="${logo.src}" alt="${logo.name}" style="height:56px;width:auto;object-fit:contain;">
+    <span style="font-size:.72rem;color:#888;font-weight:500;letter-spacing:.04em;">${logo.name}</span>
+  </div>`;
 }
 
 function buildCarousel() {
