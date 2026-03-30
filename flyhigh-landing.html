@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="icon" href="./assets/logo.png" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 :root {
   --gold:       #c9a84c;
@@ -27,8 +28,8 @@
 }
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden;width:100%;}
 
 /* ════════════════ NAV ════════════════ */
 #nav{
@@ -104,7 +105,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);o
 /* gold gradient glow bottom */
 #hero::after{
   content:'';position:absolute;bottom:-120px;left:50%;transform:translateX(-50%);
-  width:900px;height:400px;border-radius:50%;
+  width:min(900px, 100vw);height:400px;border-radius:50%;
   background:radial-gradient(ellipse at center,rgba(201,168,76,.12) 0%,transparent 70%);
   pointer-events:none;
 }
@@ -142,16 +143,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);o
 
 h1.htitle{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(3rem,5.5vw,5.8rem);font-weight:700;
-  color:var(--ink);line-height:1.05;letter-spacing:-.025em;
-  margin-bottom:24px;max-width:850px;
+  font-size:clamp(2.2rem,5.5vw,5.8rem);font-weight:700;
+  color:var(--ink);line-height:1.1;letter-spacing:-.025em;
+  margin-bottom:24px;max-width:850px;width:100%;
   position:relative;z-index:1;
 }
 h1.htitle em{color:var(--gold);font-style:normal;}
 
 .hero-sub{
-  font-size:1.05rem;color:var(--gray);line-height:1.85;font-weight:300;
-  max-width:560px;margin:0 auto 48px;position:relative;z-index:1;
+  font-size:clamp(.9rem,2.5vw,1.05rem);color:var(--gray);line-height:1.85;font-weight:300;
+  max-width:560px;width:100%;margin:0 auto 48px;position:relative;z-index:1;
+  padding:0 4px;
 }
 
 .hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
@@ -256,7 +258,7 @@ h1.htitle em{color:var(--gold);font-style:normal;}
 }
 
 /* ════════════════ NOSOTROS ════════════════ */
-#nosotros{padding:110px 5%;background:var(--white);}
+#nosotros{padding:110px 5%;background:var(--white);overflow:hidden;}
 
 .nos-top{
   display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
@@ -320,7 +322,7 @@ h1.htitle em{color:var(--gold);font-style:normal;}
 .mv-btn-light:hover{background:var(--ink2);}
 
 /* ════════════════ SERVICIOS ════════════════ */
-#servicios{padding:110px 5%;background:var(--off);}
+#servicios{padding:110px 5%;background:var(--off);overflow:hidden;}
 
 .svc-header{
   display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:64px;
@@ -382,7 +384,7 @@ h1.htitle em{color:var(--gold);font-style:normal;}
 }
 
 /* ════════════════ METODOLOGIA ════════════════ */
-#metodologia{padding:110px 5%;background:var(--white);}
+#metodologia{padding:110px 5%;background:var(--white);overflow:hidden;}
 .met-header{text-align:center;max-width:640px;margin:0 auto 72px;}
 .met-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 .met-card{
@@ -401,7 +403,7 @@ h1.htitle em{color:var(--gold);font-style:normal;}
 .met-card p{font-size:.84rem;color:var(--gray);line-height:1.72;font-weight:300;}
 
 /* ════════════════ CONTACTO ════════════════ */
-#contacto{padding:110px 5%;background:var(--off);}
+#contacto{padding:110px 5%;background:var(--off);overflow:hidden;}
 
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
 
@@ -476,23 +478,128 @@ footer{
 .footer-bottom small{font-size:.74rem;color:rgba(255,255,255,.2);font-weight:300;}
 .footer-tagline{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,168,76,.35);}
 
+/* ════════════════ HAMBURGER ════════════════ */
+.hamburger{
+  display:none;flex-direction:column;justify-content:center;align-items:center;
+  width:40px;height:40px;cursor:pointer;background:none;border:none;padding:4px;gap:5px;
+}
+.hamburger span{
+  display:block;width:22px;height:1.5px;background:var(--ink);
+  transition:transform .3s, opacity .3s;transform-origin:center;
+}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+/* ─── Mobile nav drawer ─── */
+#mobile-menu{
+  display:none;
+  position:fixed;top:70px;left:0;right:0;z-index:299;
+  background:rgba(255,255,255,0.98);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  flex-direction:column;padding:8px 5% 20px;
+  transform:translateY(-12px);opacity:0;
+  transition:transform .3s ease,opacity .3s ease;
+  pointer-events:none;
+}
+#mobile-menu.open{
+  display:flex;transform:translateY(0);opacity:1;pointer-events:all;
+}
+.mobile-nav-links{display:flex;flex-direction:column;gap:2px;}
+.mobile-nav-links a{
+  text-decoration:none;color:var(--ink3);font-size:.85rem;
+  font-weight:400;letter-spacing:.06em;text-transform:uppercase;
+  padding:13px 0;border-bottom:1px solid var(--border2);
+  transition:color .2s;
+}
+.mobile-nav-links a:last-child{border-bottom:none;}
+.mobile-nav-links a:hover{color:var(--gold);}
+.mobile-nav-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:16px;gap:12px;
+}
+
 /* ════════════════ RESPONSIVE ════════════════ */
 @media(max-width:1024px){
   .nos-top,.mv-grid,.svc-grid,.contact-grid{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr 1fr;}
+  .svc-footer{flex-direction:column;align-items:flex-start;}
 }
+
 @media(max-width:768px){
+  /* nav */
   .nav-center{display:none;}
+  .nav-cta{display:none;}
+  .hamburger{display:flex;}
+
+  /* hero */
+  #hero{padding:90px 6% 80px;}
+  .hr1{width:min(320px,80vw);height:min(320px,80vw);}
+  .hr2{width:min(250px,62vw);height:min(250px,62vw);}
+  .hero-logo{width:min(210px,52vw);height:min(210px,52vw);}
+  .hero-eyebrow{font-size:.65rem;padding:5px 14px;}
+  h1.htitle{font-size:clamp(2rem,8vw,2.8rem);}
+  .hero-sub{font-size:.92rem;}
+  .hero-btns{flex-direction:column;align-items:center;width:100%;}
+  .btn-gold,.btn-outline{width:100%;max-width:320px;text-align:center;}
+
+  /* sections padding */
+  #nosotros,#servicios,#metodologia,#contacto{padding:72px 6%;}
+
+  /* grids */
   .met-grid,.nos-pillars{grid-template-columns:1fr 1fr;}
   .svc-header{grid-template-columns:1fr;gap:20px;}
-  h1.htitle{font-size:2.5rem;}
-  .mv-card,.svc-card,.contact-info,.contact-form-wrap{padding:36px 28px;}
+  .nos-top{gap:40px;margin-bottom:48px;}
+
+  /* cards */
+  .mv-card,.svc-card,.contact-info,.contact-form-wrap{padding:32px 24px;}
+  .contact-info{padding:36px 28px;}
+  .contact-form-wrap{padding:36px 28px;}
+
+  /* footer */
   .footer-grid{grid-template-columns:1fr;}
+  footer{padding:52px 6% 0;}
+
+  /* svc footer */
+  .svc-footer{padding:28px 24px;}
+  .svc-tags{gap:6px;}
 }
+
 @media(max-width:540px){
+  /* nav */
+  .nav-logo{font-size:1.4rem;}
+  #nav{padding:0 4%;}
+
+  /* hero */
+  #hero{padding:88px 5% 72px;}
+  h1.htitle{font-size:clamp(1.9rem,9vw,2.4rem);letter-spacing:-.015em;}
+  .hr1{width:min(280px,85vw);height:min(280px,85vw);}
+  .hr2{width:min(215px,66vw);height:min(215px,66vw);}
+  .hero-logo{width:min(180px,50vw);height:min(180px,50vw);}
+
+  /* sections */
+  #nosotros,#servicios,#metodologia,#contacto{padding:60px 5%;}
+
+  /* grids */
   .met-grid,.nos-pillars{grid-template-columns:1fr;}
   .form-row{grid-template-columns:1fr;}
+  .mv-grid{grid-template-columns:1fr;}
+
+  /* cards */
+  .mv-card,.svc-card{padding:28px 20px;}
+  .contact-info,.contact-form-wrap{padding:28px 20px;}
+  .svc-footer{padding:24px 20px;}
+
+  /* footer */
+  footer{padding:44px 5% 0;}
+  .footer-grid{gap:32px;}
+
+  /* form */
+  .form-foot{flex-direction:column;align-items:flex-start;gap:12px;}
+  .form-foot .btn-gold{width:100%;}
+  .cform{gap:12px;}
 }
+
 </style>
 </head>
 <body>
@@ -512,8 +619,28 @@ footer{
       <button class="lang-btn"        id="btn-en" onclick="setLang('en')">EN</button>
     </div>
     <a href="#contacto" class="nav-cta" data-es="Hablemos" data-en="Let's talk">Hablemos</a>
+    <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- ══════ MOBILE MENU ══════ -->
+<div id="mobile-menu">
+  <nav class="mobile-nav-links">
+    <a href="#nosotros"    data-es="Nosotros"    data-en="About"       onclick="closeMenu()">Nosotros</a>
+    <a href="#servicios"   data-es="Servicios"   data-en="Services"    onclick="closeMenu()">Servicios</a>
+    <a href="#metodologia" data-es="Metodología" data-en="Methodology" onclick="closeMenu()">Metodología</a>
+    <a href="#contacto"    data-es="Contacto"    data-en="Contact"     onclick="closeMenu()">Contacto</a>
+  </nav>
+  <div class="mobile-nav-bottom">
+    <div class="lang-switch">
+      <button class="lang-btn active" id="mbtn-es" onclick="setLang('es')">ES</button>
+      <button class="lang-btn"        id="mbtn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="#contacto" class="nav-cta" style="display:inline-block;" data-es="Hablemos" data-en="Let's talk" onclick="closeMenu()">Hablemos</a>
+  </div>
+</div>
 
 <!-- ══════ HERO ══════ -->
 <section id="hero">
@@ -737,7 +864,7 @@ footer{
               <div class="citem-icon">📧</div>
               <div>
                 <p class="citem-label">Email</p>
-                <a href="mailto:flyhighelevateyourstyle@gmail.com" class="citem-val">flyhighelevateyourstyle@gmail.com</a>
+                <a href="/cdn-cgi/l/email-protection#8fe9e3f6e7e6e8e7eae3eaf9eefbeaf6e0fafdfcfbf6e3eacfe8e2eee6e3a1ece0e2" class="citem-val"><span class="__cf_email__" data-cfemail="16707a6f7e7f717e737a73607762736f79636465626f7a7356717b777f7a3875797b">flyhighelevateyourstyle@gmail.com</span></a>
               </div>
             </div>
             <div class="citem">
@@ -768,7 +895,7 @@ footer{
             </div>
             <div class="field">
               <label data-es="Apellido" data-en="Last name">Apellido</label>
-              <input type="text" placeholder="García">
+              <input type="text" placeholder="Perez">
             </div>
           </div>
           <div class="form-row">
@@ -838,7 +965,7 @@ footer{
       <div class="fcol">
         <h5 data-es="Contacto" data-en="Contact">Contacto</h5>
         <ul>
-          <li><a href="mailto:hola@flyhigh.dev">flyhighelevateyourstyle@gmail.com</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#dab2b5b6bb9abcb6a3b2b3bdb2f4bebfac"><span class="__cf_email__" data-cfemail="5c3a302534353b343930392a3d28392533292e2f282530391c3b313d3530723f3331">flyhighelevateyourstyle@gmail.com</span></a></li>
           <li><a href="https://wa.me/542657292663">WhatsApp</a></li>
           <li><a href="https://www.instagram.com/high_software/">Instagram</a></li>
           <!-- ══════ <li><a href="#">LinkedIn</a></li>  ══════ --> 
@@ -846,13 +973,16 @@ footer{
       </div>
     </div>
     <div class="footer-bottom">
-      <small>© 2026 FlyHigh. <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos reservados.</span></small>
+      <small>© 2026 HighSoftware. <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos reservados.</span></small>
       <span class="footer-tagline">Elevate Your Business</span>
     </div>
   </div>
 </footer>
 
 <script>
+// ─── EmailJS init ───
+emailjs.init({ publicKey: 'YJOA6pK_jVrOJC0HP' });
+
 // ─── Carousel logos ───
 const logos = [
   { name:"Empresa A",  shape:"rect",   color:"#c9a84c" },
@@ -898,8 +1028,9 @@ let lang = 'es';
 
 function setLang(l) {
   lang = l;
-  document.getElementById('btn-es').classList.toggle('active', l === 'es');
-  document.getElementById('btn-en').classList.toggle('active', l === 'en');
+  // sync all lang buttons (desktop + mobile)
+  ['btn-es','mbtn-es'].forEach(id => { const el=document.getElementById(id); if(el) el.classList.toggle('active', l==='es'); });
+  ['btn-en','mbtn-en'].forEach(id => { const el=document.getElementById(id); if(el) el.classList.toggle('active', l==='en'); });
   document.documentElement.lang = l;
 
   document.querySelectorAll('[data-es][data-en]').forEach(el => {
@@ -920,20 +1051,80 @@ window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
 });
 
-// ─── Form submit ───
+// ─── Hamburger menu ───
+function toggleMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const btn   = document.getElementById('hamburger');
+  const isOpen = menu.classList.contains('open');
+  if (isOpen) {
+    menu.classList.remove('open');
+    btn.classList.remove('open');
+  } else {
+    menu.classList.add('open');
+    btn.classList.add('open');
+  }
+}
+function closeMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+// close menu on outside click
+document.addEventListener('click', e => {
+  const menu = document.getElementById('mobile-menu');
+  const btn   = document.getElementById('hamburger');
+  if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+    closeMenu();
+  }
+});
+
+// ─── Form submit via EmailJS ───
 function handleSubmit(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('button[type="submit"]');
-  const orig = btn.textContent;
-  btn.textContent = lang === 'es' ? '¡Enviado! Te contactamos pronto ✓' : "Sent! We'll be in touch ✓";
-  btn.style.background = '#2d7a56';
+  const form = e.target;
+  const btn  = form.querySelector('button[type="submit"]');
+  const inputs = form.querySelectorAll('input,textarea,select');
+
+  const [nombre, apellido, email, telefono, empresa] = inputs;
+  const servicio  = form.querySelector('select');
+  const mensaje   = document.getElementById('msg-ph');
+
+  const templateParams = {
+    from_name:  (nombre.value + ' ' + apellido.value).trim(),
+    from_email: email.value,
+    phone:      telefono.value || '—',
+    company:    empresa.value || '—',
+    service:    servicio.value || '—',
+    message:    mensaje.value,
+  };
+
+  const labelEs = btn.getAttribute('data-es') || 'Enviar mensaje →';
+  const labelEn = btn.getAttribute('data-en') || 'Send message →';
+
   btn.disabled = true;
-  setTimeout(() => {
-    btn.textContent = orig;
-    btn.style.background = '';
-    btn.disabled = false;
-    e.target.reset();
-  }, 4000);
+  btn.textContent = lang === 'en' ? 'Sending…' : 'Enviando…';
+
+  emailjs.send('service_3pjhr1h', 'template_emoco6e', templateParams)
+    .then(() => {
+      btn.textContent = lang === 'en' ? '✓ Sent!' : '✓ ¡Enviado!';
+      btn.style.background = '#2e7d32';
+      form.reset();
+      document.getElementById('msg-ph').placeholder = msgText[lang];
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.style.background = '';
+        btn.textContent = lang === 'en' ? labelEn : labelEs;
+      }, 4000);
+    })
+    .catch(err => {
+      console.error('EmailJS error:', err);
+      btn.textContent = lang === 'en' ? 'Error. Try again.' : 'Error. Intentá de nuevo.';
+      btn.style.background = '#c62828';
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.style.background = '';
+        btn.textContent = lang === 'en' ? labelEn : labelEs;
+      }, 4000);
+    });
 }
 </script>
 </body>
